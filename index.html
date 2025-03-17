@@ -16,7 +16,7 @@
             margin: 0;
             position: relative;
             color: white;
-            overflow: hidden; /* Чтобы кнопка не уходила за границы */
+            overflow: hidden;
         }
 
         /* GIF на заднем фоне */
@@ -81,7 +81,6 @@
             background-color: #ccc;
             color: black;
             position: absolute;
-            transition: transform 0.3s ease-out; /* Плавное перемещение */
         }
     </style>
 </head>
@@ -90,7 +89,7 @@
         <h1>Ты станешь моей девушкой? ❤️</h1>
         <div class="buttons">
             <button class="btn yes" onclick="sayYes()">Да</button>
-            <button class="btn no" onmouseover="runAway(this)" ontouchstart="runAway(this)">Нет</button>
+            <button class="btn no" id="noButton" onmouseover="runAway()" ontouchstart="runAway()">Нет</button>
         </div>
     </div>
 
@@ -99,14 +98,19 @@
             alert("Я тебя люблю, Каринка! ❤️");
         }
 
-        function runAway(button) {
-            let maxX = window.innerWidth - button.clientWidth;
-            let maxY = window.innerHeight - button.clientHeight;
+        function runAway() {
+            let button = document.getElementById("noButton");
+            let buttonWidth = button.offsetWidth;
+            let buttonHeight = button.offsetHeight;
+            
+            let maxX = window.innerWidth - buttonWidth - 10; // 10px отступ
+            let maxY = window.innerHeight - buttonHeight - 10;
 
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
 
-            button.style.transform = `translate(${x}px, ${y}px)`;
+            button.style.left = x + "px";
+            button.style.top = y + "px";
         }
     </script>
 </body>
