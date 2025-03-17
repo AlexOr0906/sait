@@ -16,6 +16,7 @@
             margin: 0;
             position: relative;
             color: white;
+            overflow: hidden; /* Чтобы кнопка не уходила за границы */
         }
 
         /* GIF на заднем фоне */
@@ -30,7 +31,7 @@
             z-index: -2;
         }
 
-        /* Затемнение для лучшей читаемости текста */
+        /* Затемнение для читаемости текста */
         body::after {
             content: "";
             position: fixed;
@@ -38,16 +39,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Полупрозрачный слой */
+            background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
 
         /* Окно с текстом */
         .container {
-            background: rgba(255, 255, 255, 0.8); /* Прозрачный белый фон */
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -56,6 +59,7 @@
 
         .buttons {
             margin-top: 20px;
+            position: relative;
         }
 
         .btn {
@@ -65,6 +69,7 @@
             cursor: pointer;
             border-radius: 5px;
             transition: 0.3s;
+            position: relative;
         }
 
         .yes {
@@ -76,6 +81,7 @@
             background-color: #ccc;
             color: black;
             position: absolute;
+            transition: transform 0.3s ease-out; /* Плавное перемещение */
         }
     </style>
 </head>
@@ -84,20 +90,23 @@
         <h1>Ты станешь моей девушкой? ❤️</h1>
         <div class="buttons">
             <button class="btn yes" onclick="sayYes()">Да</button>
-            <button class="btn no" onmouseover="runAway(this)">Нет</button>
+            <button class="btn no" onmouseover="runAway(this)" ontouchstart="runAway(this)">Нет</button>
         </div>
     </div>
 
     <script>
         function sayYes() {
-            alert("Я тебя люблю, Каринка!❤️");
+            alert("Я тебя люблю, Каринка! ❤️");
         }
 
         function runAway(button) {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            button.style.left = x + "px";
-            button.style.top = y + "px";
+            let maxX = window.innerWidth - button.clientWidth;
+            let maxY = window.innerHeight - button.clientHeight;
+
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+
+            button.style.transform = `translate(${x}px, ${y}px)`;
         }
     </script>
 </body>
