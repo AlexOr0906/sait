@@ -16,7 +16,7 @@
             margin: 0;
             position: relative;
             color: white;
-            overflow: hidden;
+            overflow: hidden; /* Запрещаем прокрутку */
         }
 
         /* GIF на заднем фоне */
@@ -31,7 +31,7 @@
             z-index: -2;
         }
 
-        /* Затемнение для читаемости текста */
+        /* Затемнение */
         body::after {
             content: "";
             position: fixed;
@@ -69,18 +69,18 @@
             cursor: pointer;
             border-radius: 5px;
             transition: 0.3s;
-            position: relative;
+            position: absolute;
         }
 
         .yes {
             background-color: #ff4d6d;
             color: white;
+            position: relative;
         }
 
         .no {
             background-color: #ccc;
             color: black;
-            position: absolute;
         }
     </style>
 </head>
@@ -102,12 +102,16 @@
             let button = document.getElementById("noButton");
             let buttonWidth = button.offsetWidth;
             let buttonHeight = button.offsetHeight;
-            
-            let maxX = window.innerWidth - buttonWidth - 10; // 10px отступ
-            let maxY = window.innerHeight - buttonHeight - 10;
+
+            let maxX = window.innerWidth - buttonWidth - 20; // Отступ 20px
+            let maxY = window.innerHeight - buttonHeight - 20;
 
             let x = Math.random() * maxX;
             let y = Math.random() * maxY;
+
+            // Проверяем, чтобы кнопка не выходила за границы
+            x = Math.max(10, Math.min(x, maxX));
+            y = Math.max(10, Math.min(y, maxY));
 
             button.style.left = x + "px";
             button.style.top = y + "px";
